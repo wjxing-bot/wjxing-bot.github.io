@@ -30,6 +30,12 @@
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
     }
 
+    .greeting {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 20px;
+    }
+
     .avatar {
       width: 72px;
       height: 72px;
@@ -71,11 +77,42 @@
       font-size: 15px;
       line-height: 1.8;
       color: #444;
+      margin-bottom: 32px;
+    }
+
+    .counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f5f5f0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .counter-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #667eea;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .counter-num {
+      font-weight: 600;
+      color: #667eea;
     }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="greeting" id="greeting"></div>
     <div class="avatar">W</div>
     <h1>wjxing</h1>
     <div class="role">Sales</div>
@@ -83,6 +120,27 @@
     <p class="bio">
       你好，我是 wjxing，一名有着丰富经验的销售从业者。我热衷于与人沟通、建立信任，擅长挖掘客户需求并提供切实可行的解决方案。无论是陌生拜访还是长期维护，我始终以真诚和专业赢得每一位客户的认可。在我看来，销售不只是成交，更是一段值得长久经营的关系。
     </p>
+    <div class="counter">
+      <span class="counter-dot"></span>
+      您是第 <span class="counter-num" id="visit-count">...</span> 位访客
+    </div>
   </div>
+
+  <script>
+    const hour = new Date().getHours();
+    const greetingEl = document.getElementById('greeting');
+    if (hour < 12) greetingEl.textContent = '☀️ 早上好，欢迎来访';
+    else if (hour < 18) greetingEl.textContent = '🌤 下午好，欢迎来访';
+    else greetingEl.textContent = '🌙 晚上好，欢迎来访';
+
+    fetch('https://api.countapi.xyz/hit/wjxing-bot.github.io/visits')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('visit-count').textContent = data.value.toLocaleString();
+      })
+      .catch(() => {
+        document.getElementById('visit-count').textContent = '–';
+      });
+  </script>
 </body>
 </html>
