@@ -37,17 +37,18 @@
     }
 
     .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      color: #fff;
-      font-weight: 600;
+      width: 140px;
+      height: 196px;
+      border-radius: 6px;
+      overflow: hidden;
       margin-bottom: 24px;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     h1 {
@@ -113,7 +114,7 @@
 <body>
   <div class="card">
     <div class="greeting" id="greeting"></div>
-    <div class="avatar">W</div>
+    <div class="avatar"><img src="个人照片/me.png" alt="wjxing" /></div>
     <h1>wjxing</h1>
     <div class="role">Sales</div>
     <div class="divider"></div>
